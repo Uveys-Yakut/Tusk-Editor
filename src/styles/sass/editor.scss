@@ -73,6 +73,12 @@
     user-select: none;
     -webkit-user-select: none;
 }
+.tusk-editor.view-line >
+span {
+    bottom: 0;
+    position: absolute;
+    top: 0;
+}
 .tusk-editor.cursor-unfyng {
     top: 0;
     position: absolute;
@@ -88,7 +94,7 @@
     line-height: 19px;
     letter-spacing: 0px;
     display: block;
-    visibility: inherit;
+    visibility: hidden;
     padding-left: 0px;
     width: 2px;
     overflow: hidden;
