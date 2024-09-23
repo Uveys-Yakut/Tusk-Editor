@@ -1,0 +1,99 @@
+@use "fonts";
+
+.tusk-editor-unfyng {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	background-color: #fffffe;
+    cursor: text;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.inputarea {
+	background-color: transparent;
+    border: none;
+    color: transparent;
+    margin: 0;
+    min-height: 0;
+    min-width: 0;
+    outline: none !important;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    resize: none;
+    z-index: -10;
+}
+.tusk-gutters {
+	position: absolute;
+    font-family: Consolas, "Courier New", monospace;
+    font-weight: normal;
+    font-size: 14px;
+    font-feature-settings: "liga" 0, "calt" 0;
+    font-variation-settings: normal;
+    line-height: 19px;
+    letter-spacing: 0px;
+    height: 1e+06px;
+	box-shadow: 5px 0 10px rgb(0 0 0 / 2%);
+}
+.tusk-gutter-itm {
+    position: absolute;
+    width: 100%;
+}
+.tusk-gutter-itm >
+.gutter-line-nmbr {
+	bottom: 0;
+    box-sizing: border-box;
+    cursor: default;
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    position: absolute;
+    text-align: right;
+    vertical-align: middle;
+	font-family: FiraCode, monospace;
+}
+.tusk-editor.slidable-element {
+    position: absolute;
+    overflow: hidden;
+    height: 100%;  
+}
+.tusk-editor.view-lines {
+    position: absolute;
+    overflow: hidden;
+    width: 1.67772e+07px;
+    height: 1.67772e+07px;
+    transform: translate3d(0px, 0px, 0px);
+    contain: strict;
+    top: 0px;
+    left: 0px;
+}
+.tusk-editor.view-line {
+    width: 100%;
+    position: absolute;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.tusk-editor.cursor-unfyng {
+    top: 0;
+    position: absolute;
+}
+.cursor-unfyng >
+.cursor {
+    height: 19px;
+    font-family: Consolas, "Courier New", monospace;
+    font-weight: normal;
+    font-size: 14px;
+    font-feature-settings: "liga" 0, "calt" 0;
+    font-variation-settings: normal;
+    line-height: 19px;
+    letter-spacing: 0px;
+    display: block;
+    visibility: inherit;
+    padding-left: 0px;
+    width: 2px;
+    overflow: hidden;
+    background-color: #000000;
+    border-color: #000000;
+    color: #ffffff;
+    position: absolute;
+}
