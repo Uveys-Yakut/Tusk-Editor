@@ -12,13 +12,13 @@ function calculateTabSize() {
     return characterWidth * 4;
 }
 
-function setAttributes(element, attributes) {
+function setAttributes(element: any, attributes: any) {
     for (const [key, value] of Object.entries(attributes)) {
         element.setAttribute(key, value);
     }
 }
 
-function applyStyles(element, styles) {
+function applyStyles(element: any, styles: any) {
     for (const [key, value] of Object.entries(styles)) {
         element.style[key] = value;
     }
@@ -35,7 +35,10 @@ function createEditor(editor: HTMLElement) {
     const tuskGutters = document.createElement("div");
     const tuskGutter = document.createElement("div");
     const tuskGutterLineNmbr = document.createElement("div");
+    const tuskEdtrView_lines_skin = document.createElement("div");
+    const tuskEdtrView_lines_skinItm = document.createElement("div");
     const tuskEdtrView_lines = document.createElement("div");
+    const tuskEdtrView_currentLine = document.createElement("div");
     const tuskEdtrView_lineItm = document.createElement("div");
     const defaultLnItm_cntntUnifyning = document.createElement("span");
     const defaultLnItm_cntnt = document.createElement("span");
@@ -64,6 +67,14 @@ function createEditor(editor: HTMLElement) {
     tuskGutter.appendChild(tuskGutterLineNmbr);
     tuskGutters.appendChild(tuskGutter);
 
+    // Editor View Lines Skin Setup
+    tuskEdtrView_lines_skin.classList.add("tusk-editor", "view-lines-skins");
+    applyStyles(tuskEdtrView_lines_skinItm, { top: 0, height: "19px"});
+    tuskEdtrView_currentLine.classList.add("current-line-act-4");
+    tuskEdtrView_lines_skinItm.appendChild(tuskEdtrView_currentLine);
+    tuskEdtrView_lines_skin.appendChild(tuskEdtrView_lines_skinItm);
+    // Editor View Lines Skin Setup
+
     // Editor View Lines Setup
     tuskEdtrView_lines.classList.add("tusk-editor", "view-lines");
     tuskEdtrView_lineItm.classList.add("tusk-editor", "view-line");
@@ -79,9 +90,10 @@ function createEditor(editor: HTMLElement) {
 
     applyStyles(tuskEdtrCursor, { top: "0px", left: "0px" });
     tuskEdtrCursorUnifyning.appendChild(tuskEdtrCursor);
-    tuskEdtrView_lines.appendChild(tuskEdtrCursorUnifyning);
 
+    tuskSlidableElement.appendChild(tuskEdtrView_lines_skin);
     tuskSlidableElement.appendChild(tuskEdtrView_lines);
+    tuskSlidableElement.appendChild(tuskEdtrCursorUnifyning);
 
     // Input Area Setup
     tuskEdtrInptArea.classList.add("inputarea");
