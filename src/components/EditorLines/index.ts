@@ -1,17 +1,18 @@
-import { HandleEditorCursor } from "../../events/commands/editorCursor";
+import { CursorManager } from "../EditorCursor";
 import { DomRenderer } from "../DomRenderer";
 
 class EditorLinesManager {
     private domRenderer: DomRenderer;
     private editorSlidableContainer: HTMLElement;
-    private curosElement: HTMLElement;
-    private handleEditorCursor: HandleEditorCursor;
+    private cursor: HTMLElement;
+    private textarea: HTMLTextAreaElement;
+    private cursorManager: CursorManager;
 
-    constructor(editorSlidableContainer: HTMLElement, curosElement: HTMLElement) {
-        this.curosElement = curosElement;
+    constructor(editorSlidableContainer: HTMLElement, cursor: HTMLElement, textarea: HTMLTextAreaElement) {
+        this.cursor = cursor;
         this.editorSlidableContainer = editorSlidableContainer;
         this.domRenderer = new DomRenderer();
-        this.handleEditorCursor = new HandleEditorCursor(this.curosElement);
+        this.cursorManager = new CursorManager(this.cursor, this.textarea);
     }
 
     private setPositionAndHeight(element: HTMLElement, top: number, height: string) {
@@ -45,10 +46,17 @@ class EditorLinesManager {
         tuskEditorLinesSkin_unifyning?.appendChild(createNewLineSkin);
 
         document.querySelector(".current-line-act-4")?.remove();
-
-        this.handleEditorCursor.updateCursorPos({ top: newLineYPos, left: 0 });
+        this.cursorManager.updateCursorPos({ top: newLineYPos, left: 0 });
 
         return newLineId;
+    }
+
+    public updateCurrentLine(yPos: number) {
+        const newCurrentLineId = yPos/19;
+        const tuskEditorLinesSkin_unifyning = this.editorSlidableContainer.querySelector(".tusk-editor.view-lines-skins");
+
+        document.querySelector(".current-line-act-4")?.remove();
+        tuskEditorLinesSkin_unifyning?.children[newCurrentLineId].appendChild(this.domRenderer.currentLineSkin());
     }
 }
 

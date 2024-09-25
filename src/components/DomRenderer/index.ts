@@ -13,6 +13,13 @@ class DomRenderer {
         return tuskNewGutterElement;
     }
 
+    public currentLineSkin() {
+        const tuskCurrentLineAct_4 = document.createElement('div');
+        tuskCurrentLineAct_4.classList.add("current-line-act-4");
+
+        return tuskCurrentLineAct_4;
+    }
+
     public newLineSkinTemp() {
         const tuskNewLineSkinElement = document.createElement('div');
         const tuskCurrentLineAct_4 = document.createElement('div');
