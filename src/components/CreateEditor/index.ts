@@ -1,131 +1,49 @@
-function calculateTabSize() {
-    const testElement = document.createElement('span');
-    testElement.style.fontFamily = 'Liberation, "Courier New", monospace';
-    testElement.style.fontSize = '14px';
-    testElement.style.visibility = 'hidden';
-    testElement.innerText = 'a';
-    document.body.appendChild(testElement);
-
-    const characterWidth = testElement.offsetWidth;
-    document.body.removeChild(testElement);
-
-    return characterWidth * 4;
-}
-
-function setAttributes(element: any, attributes: any) {
-    for (const [key, value] of Object.entries(attributes)) {
-        element.setAttribute(key, value);
-    }
-}
-
-function applyStyles(element: any, styles: any) {
-    for (const [key, value] of Object.entries(styles)) {
-        element.style[key] = value;
-    }
-}
+import { VNode, createElement, createTextVNode } from '../../utils/VirtualDOM';
+import { render } from '../../utils/VirtualDOM/render';
 
 function createEditor(editor: HTMLElement) {
-    editor.style.position = "relative";
+    const editorVNode: VNode = createElement('div', { class: 'tusk-editor-unfyng' }, 
+        createElement('div', { class: 'tusk-gutters', style: 'width: 60px;' },
+            createElement('div', { class: 'tusk-gutter-itm', style: 'top: 0px; height: 19px;' },
+                createElement('div', { class: 'gutter-line-nmbr', style: 'left: 0px; width: 36px;' }, createTextVNode('1'))
+            )
+        ),
+        createElement('div', { class: 'tusk-editor slidable-element', style: `width: ${editor.offsetWidth - 60}px; left: 60px;`},
+            createElement('div', { class: 'tusk-editor view-lines-skins' },
+                createElement('div', { style: 'top: 0px; height: 19px;' },
+                    createElement('div', { class: 'current-line-act-4' })
+                )
+            ),
+            createElement('div', { class: 'tusk-editor view-lines' },
+                createElement('div', { class: 'tusk-editor view-line', style: 'top: 0px; height: 19px;' },
+                    createElement('span', {},
+                        createElement('span', {})
+                    )
+                )
+            ),
+            createElement('div', { class: 'tusk-editor cursor-unfyng', 'aria-hidden': 'true' },
+                createElement('div', { class: 'cursor', style: 'top: 0px; left: 0px;' })
+            )
+        ),
+        createElement('textarea', { 
+            class: 'inputarea', 
+            wrap: 'off', 
+            autocorrect: 'off', 
+            autocapitalize: 'off', 
+            autocomplete: 'off', 
+            spellcheck: 'false', 
+            'aria-label': 'Editor content', 
+            'aria-required': 'false', 
+            tabindex: '0', 
+            role: 'textbox', 
+            'aria-roledescription': 'editor', 
+            'aria-multiline': 'true', 
+            'aria-autocomplete': 'both', 
+            style: 'tab-size: 32; font-family: Consolas, "Courier New", monospace; font-weight: normal; font-size: 14px; font-feature-settings: "liga" 0, "calt" 0; line-height: 19px; letter-spacing: 0px; top: 0; left: 0; width: 1px; height: 1px;'
+        })
+    );    
 
-    const frgmntCrtEdtr = document.createDocumentFragment();
-
-    // Editor Components
-    const tuskEditorUnifyning = document.createElement("div");
-    const tuskSlidableElement = document.createElement("div");
-    const tuskGutters = document.createElement("div");
-    const tuskGutter = document.createElement("div");
-    const tuskGutterLineNmbr = document.createElement("div");
-    const tuskEdtrView_lines_skin = document.createElement("div");
-    const tuskEdtrView_lines_skinItm = document.createElement("div");
-    const tuskEdtrView_lines = document.createElement("div");
-    const tuskEdtrView_currentLine = document.createElement("div");
-    const tuskEdtrView_lineItm = document.createElement("div");
-    const defaultLnItm_cntntUnifyning = document.createElement("span");
-    const defaultLnItm_cntnt = document.createElement("span");
-    const tuskEdtrCursorUnifyning = document.createElement("div");
-    const tuskEdtrCursor = document.createElement("div");
-    const tuskEdtrInptArea = document.createElement("textarea");
-
-    // Editor Unifying Wrapper
-    tuskEditorUnifyning.classList.add("tusk-editor-unfyng");
-
-    // Slidable Element Setup
-    tuskSlidableElement.classList.add("tusk-editor", "slidable-element");
-    applyStyles(tuskSlidableElement, { width: `${editor.offsetWidth - 60}px`, left: "60px" });
-
-    // Gutter Setup
-    tuskGutters.classList.add("tusk-gutters");
-    tuskGutters.style.width = "60px";
-
-    tuskGutter.classList.add("tusk-gutter-itm");
-    applyStyles(tuskGutter, { top: "0px", height: "19px" });
-
-    tuskGutterLineNmbr.classList.add("gutter-line-nmbr");
-    applyStyles(tuskGutterLineNmbr, { left: "0px", width: "36px" });
-    tuskGutterLineNmbr.textContent = "1";
-
-    tuskGutter.appendChild(tuskGutterLineNmbr);
-    tuskGutters.appendChild(tuskGutter);
-
-    // Editor View Lines Skin Setup
-    tuskEdtrView_lines_skin.classList.add("tusk-editor", "view-lines-skins");
-    applyStyles(tuskEdtrView_lines_skinItm, { top: 0, height: "19px"});
-    tuskEdtrView_currentLine.classList.add("current-line-act-4");
-    tuskEdtrView_lines_skinItm.appendChild(tuskEdtrView_currentLine);
-    tuskEdtrView_lines_skin.appendChild(tuskEdtrView_lines_skinItm);
-    // Editor View Lines Skin Setup
-
-    // Editor View Lines Setup
-    tuskEdtrView_lines.classList.add("tusk-editor", "view-lines");
-    tuskEdtrView_lineItm.classList.add("tusk-editor", "view-line");
-    defaultLnItm_cntntUnifyning.appendChild(defaultLnItm_cntnt)
-    tuskEdtrView_lineItm.appendChild(defaultLnItm_cntntUnifyning);
-    applyStyles(tuskEdtrView_lineItm, { top: "0px", height: "19px" });
-    tuskEdtrView_lines.appendChild(tuskEdtrView_lineItm);
-
-    // Cursor Setup
-    tuskEdtrCursorUnifyning.classList.add("tusk-editor", "cursor-unfyng");
-    tuskEdtrCursorUnifyning.setAttribute("aria-hidden", "true");
-    tuskEdtrCursor.classList.add("cursor");
-
-    applyStyles(tuskEdtrCursor, { top: "0px", left: "0px" });
-    tuskEdtrCursorUnifyning.appendChild(tuskEdtrCursor);
-
-    tuskSlidableElement.appendChild(tuskEdtrView_lines_skin);
-    tuskSlidableElement.appendChild(tuskEdtrView_lines);
-    tuskSlidableElement.appendChild(tuskEdtrCursorUnifyning);
-
-    // Input Area Setup
-    tuskEdtrInptArea.classList.add("inputarea");
-
-    const inptAreaAttrbts = {
-        'wrap': "off",
-        'autocorrect': "off",
-        'autocapitalize': "off",
-        'autocomplete': "off",
-        'spellcheck': "false",
-        'aria-label': "Editor content",
-        'aria-required': "false",
-        'tabindex': "0",
-        'role': "textbox",
-        'aria-roledescription': "editor",
-        'aria-multiline': "true",
-        'aria-autocomplete': "both"
-    };
-    setAttributes(tuskEdtrInptArea, inptAreaAttrbts);
-    
-    tuskEdtrInptArea.setAttribute(
-        "style",
-        `tab-size: ${calculateTabSize()}; font-family: Consolas, "Courier New", monospace; font-weight: normal; font-size: 14px; font-feature-settings: "liga" 0, "calt" 0; line-height: 19px; letter-spacing: 0px; top: 0; left: 0; width: 1px; height: 1px;`
-    );
-
-    // Append Elements
-    tuskEditorUnifyning.appendChild(tuskGutters);
-    tuskEditorUnifyning.appendChild(tuskSlidableElement);
-    tuskEditorUnifyning.appendChild(tuskEdtrInptArea);
-    frgmntCrtEdtr.appendChild(tuskEditorUnifyning);
-
-    editor.appendChild(frgmntCrtEdtr);
+    render(editorVNode, editor);
 }
 
 export { createEditor };

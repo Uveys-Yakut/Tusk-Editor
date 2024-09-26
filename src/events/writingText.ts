@@ -70,7 +70,11 @@ class TuskWritingText extends KeyboardInputs {
         const inputHandler = (event: Event) => {
             const inputEvent = event as InputEvent;
             if (inputEvent.data) {
-                this.currentLineElement.children[0].children[0].textContent += (inputEvent.data !== " ") ? inputEvent.data : " ";
+                if (inputEvent.data === " ") {
+                    this.currentLineElement.children[0].children[0].innerHTML += "&nbsp;";
+                } else {
+                    this.currentLineElement.children[0].children[0].textContent += inputEvent.data;
+                }
                 this.updateCursorAnimation();
                 this.cursorManager.updateCursorPos({ left: this.currentLineElement.children[0].clientWidth });
             }
